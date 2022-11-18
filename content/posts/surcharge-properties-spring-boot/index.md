@@ -2,7 +2,7 @@
 title: "Comment surcharger les propriétés d'une application Spring Boot ?"
 date: 2022-11-18T17:58:29+01:00
 draft: false
-tags: ["spring"]
+tags: ["java","spring","kubernetes","docker"]
 categories: ["how-to"]
 author: "Claude Gamache"
 cover:
