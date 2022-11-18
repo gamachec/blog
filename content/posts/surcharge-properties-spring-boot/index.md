@@ -11,6 +11,8 @@ cover:
     relative: false # To use relative path for cover image, used in hugo Page-bundles
 ---
 
+## Introduction
+
 J’ai récemment souhaité tester, sur mon poste, l’image docker d’une application Spring Boot que j’étais en train de développer.
 
 La première contrainte quand l’application démarre dans un conteneur, comment lui indiquer, sans avoir accès à ses properties, qu’il doit utiliser la base de données qui tourne sur mon poste ?
@@ -80,9 +82,86 @@ Il suffira ensuite de les coller où vous voulez les utiliser en adaptant les va
 
 ## Appliquer les variables d’environnement
 
-### Dans un lanceur IntelliJ IDEA
-
 ### Dans un conteneur Docker
+
+Dans la ligne de commande utilisée pour démarrer le conteneur, ajouter les variables d'environnement préfixé par le flag `-e` :
+
+```shell
+docker run \
+-e PROJECT_PERSON_0_FIRSTNAME=John \
+-e PROJECT_PERSON_0_LASTNAME=Doe \
+hello-world
+```
+
+Il est également possible de passer par un fichier plat :
+
+```
+# env.txt
+
+PROJECT_PERSON_0_FIRSTNAME=John
+PROJECT_PERSON_0_LASTNAME=Doe
+```
+
+Puis de l'utiliser avec le flag `--env-file` :
+
+```shell
+docker run --env-file ./env.txt hello-world 
+```
 
 ### Dans un déploiement Kubernetes
 
+Créer un fichier et y copier les variables d'environnement à injecter dans le pod :
+
+```
+# env.txt
+
+PROJECT_PERSON_0_FIRSTNAME=John
+PROJECT_PERSON_0_LASTNAME=Doe
+```
+
+Puis créer un objet configmap à partir du fichier d'environnement :
+
+```shell
+kubectl create configmap <nom_configmap> --from-env-file=./env.txt
+```
+
+Vérifier que la configmap contient bien les variables d'environnement :
+
+```shell
+kubectl get configmaps <nom_configmap> -o yaml
+```
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: <nom_configmap>
+  ...
+data:
+  PROJECT_PERSON_0_FIRSTNAME: John
+  PROJECT_PERSON_0_LASTNAME: Doe
+```
+
+Editer ou créer le descripteur de déploiement du pod de l'application pour y ajouter une réference vers la nouvelle configmap :
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-hello-world
+spec:
+  containers:
+    - name: pod-hello-world
+      image: registry.k8s.io/hello-world
+      envFrom:
+      - configMapRef:
+          name: <nom_configmap>
+```
+
+## Conclusion
+
+Nous avons désormais la possibilité de surcharger facilement les propriétés de notre application spring boot au démarrage et à l'adapter à notre environnement de développement.
+
+Pour aller plus loin : 
+- https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config
+- https://learnk8s.io/spring-boot-kubernetes-guide
+- https://www.baeldung.com/spring-cloud-kubernetes
