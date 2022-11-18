@@ -1,0 +1,53 @@
+baseURL: "https://examplesite.com/"
+title: La minute tech'
+paginate: 5
+theme: papermod
+languageCode: "fr"
+defaultContentLanguage: "fr"
+
+taxonomies:
+  tag: "tags"
+  category: "categories"
+
+params:
+  defaultTheme: dark
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowToc: true
+  TocOpen: true
+
+  homeInfoParams:
+    Title: "Claude Gamache \U0001F44B"
+    Content: "\"Codez toujours comme si la personne qui allait maintenir votre code était un violent psychopathe qui sait où vous habitez.\" - Jeff Atwood"
+
+  socialIcons:
+    - name: twitter
+      url: "https://twitter.com/gamache_c"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/claude-gamache/"
+    - name: github
+      url: "https://github.com/gamachec"
+
+menu:
+  main:
+    - identifier: categories
+      name: Catégories
+      url: /categories/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: search
+      name: Rechercher
+      url: /search
+      weight: 30
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
