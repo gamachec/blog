@@ -67,7 +67,7 @@ Pour référence, voici les types de commits nommés dans la convention :
 - `perf:`
 - `test:`
 
-Même si cette liste n'est qu'un convention, l'idéal est de s'y tenir pour rentrer dans les clous de certains outils,
+Même si cette liste n'est qu'une convention, l'idéal est de s'y tenir pour rentrer dans les clous de certains outils,
 comme le
 [commitlinter](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional). Ce
 linter
