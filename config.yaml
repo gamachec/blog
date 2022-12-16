@@ -4,7 +4,6 @@ paginate: 5
 theme: papermod
 languageCode: "fr"
 defaultContentLanguage: "fr"
-googleAnalytics: G-79V1P0KY98
 
 taxonomies:
   tag: "tags"
