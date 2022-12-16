@@ -11,8 +11,6 @@ taxonomies:
   category: "categories"
 
 params:
-  defaultTheme: dark
-
   ShowReadingTime: true
   ShowShareButtons: true
   ShowPostNavLinks: true
